@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARE Conference: Discovering All Rare Energy</title>
+<meta name="description" content="DARE Conference, an annual gathering for discovery, renewal and rare spiritual energy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Inter+Tight:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     CONFIG NOTE FOR FUTURE EDITIONS
+     Colors, type and copy are all driven from the variables and
+     JS config below. To re-skin for a new year: update the JS
+     CONFIG object (acronym, tagline, dates, speakers, program)
+     and swap the images marked "REPLACE ME" — no redesign needed.
+     ============================================================ */
+
+  :root{
+    --forest:      #071F17;   /* near-black deep green — page background */
+    --deep:        #0B3527;   /* deep forest green — primary surface */
+    --deep-2:      #0E4230;   /* slightly lifted deep green for cards */
+    --emerald:     #1B6E4C;   /* emerald mid — structure, borders */
+    --emerald-br:  #23A06B;   /* bright emerald — accent / CTA */
+    --emerald-brh: #2BBE7E;   /* bright emerald hover */
+    --mint:        #DCEFE3;   /* soft mint — subtle tints */
+    --mint-2:      #EFF7F2;   /* near-white mint background */
+    --white:       #FFFFFF;
+    --ink:         #06170F;   /* near-black text on light bg */
+    --paper-ink:   #143327;   /* body text on light bg */
+    --line:        rgba(255,255,255,0.14);
+    --line-soft:   rgba(7,31,23,0.10);
+
+    --font-display: 'Fraunces', 'Iowan Old Style', serif;
+    --font-body: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-utility: 'Space Grotesk', 'Inter Tight', sans-serif;
+
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--forest); color:var(--mint-2);
+    font-family:var(--font-body); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  h1,h2,h3,h4{ font-family:var(--font-display); margin:0; font-weight:450; color:var(--white); }
+  p{ margin:0; }
+  .container{ max-width:1240px; margin:0 auto; padding:0 clamp(20px,5vw,64px); }
+  .eyebrow{
+    font-family:var(--font-utility); font-size:12.5px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--emerald-brh); font-weight:600;
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--emerald-brh); display:inline-block; }
+
+  ::selection{ background:var(--emerald-br); color:var(--white); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:2px solid var(--emerald-brh); outline-offset:3px; border-radius:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    font-family:var(--font-utility); font-size:13.5px; font-weight:600;
+    letter-spacing:.09em; text-transform:uppercase; padding:16px 30px;
+    border-radius:2px; cursor:pointer; border:1px solid transparent;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .45s var(--ease), background-color .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-primary{ background:var(--emerald-br); color:#06170F; }
+  .btn-primary:hover{ background:var(--emerald-brh); transform:translateY(-2px); box-shadow:0 14px 32px -12px rgba(35,160,107,.55); }
+  .btn-secondary{ background:transparent; color:var(--mint-2); border-color:rgba(255,255,255,.35); }
+  .btn-secondary:hover{ border-color:var(--white); background:rgba(255,255,255,.06); transform:translateY(-2px); }
+  .btn-arrow{ transition:transform .35s var(--ease); }
+  .btn:hover .btn-arrow{ transform:translateX(4px); }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:18px 0; background:rgba(7,31,23,0);
+    border-bottom:1px solid transparent;
+    transition:background-color .5s var(--ease), border-color .5s var(--ease), padding .5s var(--ease);
+  }
+  header.nav.scrolled{
+    background:rgba(7,31,23,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-color:var(--line); padding:12px 0;
+  }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; }
+  .nav-brand{ display:flex; align-items:center; gap:12px; }
+  .nav-brand .mark{ width:34px; height:34px; }
+  .nav-brand .word{ font-family:var(--font-display); font-size:17px; letter-spacing:.02em; color:var(--white); white-space:nowrap; }
+  .nav-links{ display:flex; align-items:center; gap:34px; }
+  .nav-links a{ font-family:var(--font-utility); font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.72); transition:color .3s; position:relative; }
+  .nav-links a::after{ content:''; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:var(--emerald-brh); transform:scaleX(0); transform-origin:left; transition:transform .35s var(--ease); }
+  .nav-links a:hover{ color:var(--white); }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-cta{ display:flex; align-items:center; gap:18px; }
+  .nav-cta .btn{ padding:11px 22px; font-size:12px; }
+  .nav-burger{ display:none; width:40px; height:40px; border:1px solid var(--line); border-radius:2px; background:none; align-items:center; justify-content:center; cursor:pointer; }
+  .nav-burger span, .nav-burger span::before, .nav-burger span::after{ content:''; display:block; width:18px; height:1.5px; background:var(--white); position:relative; transition:transform .3s; }
+  .nav-burger span::before{ position:absolute; top:-6px; }
+  .nav-burger span::after{ position:absolute; top:6px; }
+
+  .mobile-menu{
+    position:fixed; inset:0; z-index:99; background:var(--forest);
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:28px;
+    padding:0 32px; transform:translateY(-100%); transition:transform .5s var(--ease);
+  }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{ font-family:var(--font-display); font-size:34px; color:var(--white); }
+  .mobile-menu .close-btn{ position:absolute; top:22px; right:24px; width:40px; height:40px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; border-radius:2px; }
+
+  @media (max-width:880px){
+    .nav-links, .nav-cta .btn-secondary{ display:none; }
+    .nav-burger{ display:flex; }
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero{ display:flex; min-height:100vh; position:relative; }
+
+  .hero-visual{
+    flex:0 0 54%; position:relative; overflow:hidden; background:#04120C;
+  }
+  .slide{
+    position:absolute; inset:0; opacity:0; transition:opacity 1.2s var(--ease);
+  }
+  .slide.active{ opacity:1; z-index:2; }
+  .slide-bg{
+    position:absolute; inset:-4%; width:108%; height:108%;
+    object-fit:cover; object-position:center 28%; display:block;
+    transform:scale(1); animation:none; background:#04120C;
+  }
+  .slide.active .slide-bg{ animation:kenburns 9s ease-out forwards; }
+  @keyframes kenburns{
+    from{ transform:scale(1) translate(0,0); }
+    to{ transform:scale(1.09) translate(-1%,-1%); }
+  }
+  .slide-overlay{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(4,18,12,.25) 0%, rgba(4,18,12,.35) 55%, rgba(4,18,12,.82) 100%),
+      linear-gradient(90deg, rgba(4,18,12,.15) 0%, rgba(4,18,12,.05) 40%, rgba(4,18,12,.55) 100%);
+  }
+  .slide-caption{
+    position:absolute; left:36px; bottom:96px; z-index:3;
+    font-family:var(--font-utility); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:rgba(255,255,255,.55);
+  }
+  .slide-caption strong{ color:rgba(255,255,255,.85); font-weight:500; }
+
+  .hero-particles{ position:absolute; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen; opacity:.55; }
+
+  .hero-nav-controls{
+    position:absolute; left:36px; right:36px; bottom:36px; z-index:4;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .hero-arrows{ display:flex; gap:10px; }
+  .hero-arrow{
+    width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.35);
+    background:rgba(7,31,23,.25); backdrop-filter:blur(6px);
+    color:var(--white); display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:background-color .3s, border-color .3s, transform .3s;
+  }
+  .hero-arrow:hover{ background:rgba(35,160,107,.35); border-color:var(--emerald-brh); transform:translateY(-2px); }
+  .hero-dots{ display:flex; gap:9px; }
+  .hero-dot{
+    width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.32); border:none; cursor:pointer;
+    padding:0; position:relative; transition:background-color .3s;
+  }
+  .hero-dot.active{ background:var(--emerald-brh); }
+  .hero-dot.active::after{
+    content:''; position:absolute; inset:-5px; border:1px solid var(--emerald-brh); border-radius:50%;
+    animation:pulseDot 2.6s var(--ease) infinite;
+  }
+  @keyframes pulseDot{ 0%{ transform:scale(.7); opacity:.9;} 100%{ transform:scale(1.7); opacity:0;} }
+
+  .hero-content{
+    flex:0 0 46%; max-width:46%; background:radial-gradient(140% 120% at 15% 0%, #0E4230 0%, #0B3527 42%, #071F17 100%);
+    position:relative; padding:132px 44px 48px; display:flex; flex-direction:column; justify-content:center;
+    min-width:0; overflow:hidden;
+  }
+  .hero-watermark{
+    position:absolute; right:-6%; bottom:-8%; width:70%; opacity:.05; pointer-events:none;
+  }
+  .hero-lockup{ display:flex; align-items:center; gap:14px; margin-bottom:30px; }
+  .hero-lockup .mark{ width:46px; height:46px; }
+  .hero-lockup .edition{
+    font-family:var(--font-utility); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--emerald-brh); border:1px solid rgba(35,160,107,.45); padding:6px 12px; border-radius:100px;
+  }
+
+  .hero-title{
+    font-size:clamp(34px, 4.6vw, 68px); line-height:1.02; letter-spacing:-.01em; color:var(--white);
+    font-weight:450; overflow-wrap:break-word; word-break:break-word; max-width:100%;
+  }
+
+  .dare-reveal{ margin-top:30px; min-height:118px; }
+  .dare-letters{ display:flex; gap:4px; }
+  .dare-letters .L{
+    font-family:var(--font-display); font-size:clamp(30px,4vw,46px); color:rgba(255,255,255,.22);
+    transition:color .6s var(--ease); position:relative;
+  }
+  .dare-letters .L.lit{ color:var(--emerald-brh); }
+  .dare-word-line{
+    font-family:var(--font-utility); font-size:15px; letter-spacing:.05em; color:var(--mint);
+    margin-top:14px; min-height:24px; opacity:0; transform:translateY(8px);
+    transition:opacity .55s var(--ease), transform .55s var(--ease);
+  }
+  .dare-word-line.show{ opacity:1; transform:translateY(0); }
+  .dare-word-line .hi{ color:var(--emerald-brh); font-weight:600; }
+  .dare-final{
+    font-family:var(--font-display); font-size:clamp(22px,2.6vw,30px); color:var(--white); margin-top:6px;
+    opacity:0; transition:opacity .7s var(--ease); font-style:italic;
+  }
+  .dare-final.show{ opacity:1; }
+
+  .hero-tagline{
+    margin-top:26px; font-size:17px; color:rgba(255,255,255,.68); max-width:440px; font-weight:400;
+  }
+
+  .countdown{ margin-top:38px; display:flex; gap:12px; }
+  .countdown-card{
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); border-radius:3px;
+    padding:16px 10px; min-width:74px; text-align:center; flex:1;
+    transition:border-color .3s, background-color .3s;
+  }
+  .countdown-card:hover{ border-color:rgba(35,160,107,.55); background:rgba(35,160,107,.07); }
+  .countdown-num{
+    font-family:var(--font-utility); font-variant-numeric:tabular-nums; font-size:clamp(24px,3vw,34px);
+    color:var(--white); font-weight:600;
+  }
+  .countdown-num.tick{ animation:tickPulse .4s var(--ease); }
+  @keyframes tickPulse{ 0%{ opacity:.25; transform:translateY(2px);} 100%{ opacity:1; transform:translateY(0);} }
+  .countdown-label{
+    font-family:var(--font-utility); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    color:rgba(255,255,255,.45); margin-top:6px;
+  }
+
+  .hero-ctas{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; }
+
+  @media (max-width:1000px){
+    .hero{ flex-direction:column; min-height:auto; }
+    .hero-visual{ flex:none; height:46vh; }
+    .hero-content{ flex:none; max-width:100%; padding:44px 24px 56px; }
+    .hero-title{ font-size:clamp(38px, 9vw, 58px); }
+    .countdown{ flex-wrap:wrap; }
+    .countdown-card{ min-width:64px; }
+  }
+
+  /* ============================================================
+     ABOUT / VISION
+     ============================================================ */
+  section{ position:relative; }
+  .about{ background:var(--forest); padding:150px 0 130px; overflow:hidden; }
+  .about-watermark{ position:absolute; top:-8%; right:-6%; width:46%; opacity:.045; }
+  .about-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:start; }
+  .about-quote{
+    font-family:var(--font-display); font-size:clamp(28px,3.4vw,44px); line-height:1.18; color:var(--white);
+    font-weight:400; letter-spacing:-.01em;
+  }
+  .about-quote em{ color:var(--emerald-brh); font-style:italic; }
+  .about-body{ padding-top:14px; }
+  .about-body p{ color:rgba(255,255,255,.7); font-size:16.5px; margin-bottom:20px; max-width:480px; }
+  .about-stats{ display:flex; gap:44px; margin-top:36px; }
+  .about-stat b{ display:block; font-family:var(--font-display); font-size:32px; color:var(--white); }
+  .about-stat span{ font-family:var(--font-utility); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+
+  @media (max-width:900px){
+    .about-grid{ grid-template-columns:1fr; gap:34px; }
+    .about{ padding:100px 0 90px; }
+  }
+
+  /* ============================================================
+     DARE SIGNATURE MOMENT (scroll reveal)
+     ============================================================ */
+  .reveal-section{
+    background:linear-gradient(180deg, var(--forest) 0%, #051813 100%);
+    padding:150px 0 170px; text-align:center;
+  }
+  .reveal-eyebrow{ display:flex; justify-content:center; margin-bottom:26px; }
+  .reveal-title{ font-size:clamp(30px,4vw,44px); color:var(--white); margin-bottom:70px; }
+  .reveal-stack{ display:flex; flex-direction:column; gap:6px; max-width:820px; margin:0 auto; }
+  .reveal-row{
+    display:flex; align-items:baseline; justify-content:center; gap:22px;
+    opacity:0; transform:translateY(26px);
+    transition:opacity .8s var(--ease), transform .8s var(--ease);
+  }
+  .reveal-row.in{ opacity:1; transform:translateY(0); }
+  .reveal-row .big-letter{
+    font-family:var(--font-display); font-size:clamp(48px,7vw,84px); color:var(--emerald-brh); width:1.05em; text-align:right;
+  }
+  .reveal-row .word{
+    font-family:var(--font-display); font-size:clamp(24px,3.4vw,40px); color:rgba(255,255,255,.85); font-style:italic; text-align:left;
+  }
+  .reveal-final-line{
+    margin-top:56px; font-family:var(--font-utility); font-size:14px; letter-spacing:.2em; text-transform:uppercase;
+    color:rgba(255,255,255,.4); opacity:0; transition:opacity 1s var(--ease) .3s;
+  }
+  .reveal-final-line.in{ opacity:1; }
+  .reveal-final-line strong{ color:var(--emerald-brh); }
+  .reveal-explainer{
+    max-width:640px; margin:40px auto 0; color:rgba(255,255,255,.62); font-size:16px; line-height:1.7;
+  }
+
+  @media (max-width:640px){
+    .reveal-row{ gap:12px; }
+    .reveal-row .big-letter{ width:auto; }
+  }
+
+  /* ============================================================
+     CONTACT
+     ============================================================ */
+  .contact{ background:var(--forest); padding:150px 0; }
+  .contact-head{ text-align:center; max-width:520px; margin:0 auto 64px; }
+  .contact-head h2{ font-size:clamp(30px,4vw,46px); }
+  .contact-head p{ margin-top:18px; color:rgba(255,255,255,.6); font-size:15.5px; }
+  .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line); }
+  .contact-card{
+    background:var(--forest); padding:52px 30px; text-align:center; transition:background-color .4s var(--ease), transform .4s var(--ease);
+  }
+  .contact-card:hover{ background:var(--deep); transform:translateY(-4px); }
+  .contact-icon{
+    width:64px; height:64px; margin:0 auto 24px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center;
+    color:var(--emerald-brh); background:radial-gradient(circle at 35% 30%, rgba(35,160,107,.18), rgba(255,255,255,.02));
+    transition:border-color .35s var(--ease), transform .35s var(--ease);
+  }
+  .contact-card:hover .contact-icon{ border-color:var(--emerald-brh); transform:scale(1.06); }
+  .contact-label{ font-family:var(--font-utility); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-bottom:10px; }
+  .contact-value{ font-family:var(--font-display); font-size:19px; color:var(--white); }
+
+  @media (max-width:900px){
+    .contact{ padding:100px 0; }
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ============================================================
+     QUOTE
+     ============================================================ */
+  .quote-band{ background:var(--mint-2); padding:110px 0; text-align:center; }
+  .quote-mark{ font-family:var(--font-display); font-size:60px; color:var(--emerald); line-height:1; margin-bottom:8px; }
+  .quote-text{ font-family:var(--font-display); font-style:italic; font-size:clamp(22px,3vw,32px); color:var(--ink); max-width:760px; margin:0 auto; line-height:1.35; }
+  .quote-attr{ margin-top:26px; font-family:var(--font-utility); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--emerald); }
+
+  /* ============================================================
+     REGISTER MODAL
+     The registration experience lives entirely in this fullscreen
+     overlay now, there is no inline section on the homepage.
+     Glassmorphism is used deliberately here (and only here / in the
+     dropdowns) at the client's explicit request for this component.
+     ============================================================ */
+  .register-modal{
+    position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+    padding:24px; visibility:hidden; pointer-events:none;
+  }
+  .register-modal.open{ visibility:visible; pointer-events:auto; }
+  .register-modal-backdrop{
+    position:absolute; inset:0; background:rgba(4,14,10,.55);
+    backdrop-filter:blur(0px); -webkit-backdrop-filter:blur(0px);
+    opacity:0; transition:opacity .5s var(--ease), backdrop-filter .6s var(--ease);
+  }
+  .register-modal.open .register-modal-backdrop{ opacity:1; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+
+  .register-modal-panel{
+    position:relative; z-index:2; width:100%; max-width:920px; max-height:88vh; overflow-y:auto;
+    display:grid; grid-template-columns:0.85fr 1.15fr;
+    background:rgba(11,53,39,.42);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:6px;
+    box-shadow:0 40px 100px -20px rgba(2,10,7,.65), 0 0 0 1px rgba(255,255,255,.04) inset;
+    backdrop-filter:blur(28px) saturate(140%); -webkit-backdrop-filter:blur(28px) saturate(140%);
+    transform:scale(.94) translateY(18px); opacity:0;
+    transition:transform .55s var(--ease), opacity .5s var(--ease);
+  }
+  .register-modal.open .register-modal-panel{ transform:scale(1) translateY(0); opacity:1; }
+
+  .register-modal-visual{
+    position:relative; padding:52px 40px; display:flex; flex-direction:column; justify-content:flex-end;
+    background:radial-gradient(130% 110% at 15% 0%, rgba(35,160,107,.28) 0%, rgba(11,53,39,.2) 55%, rgba(4,18,12,.35) 100%);
+    border-right:1px solid rgba(255,255,255,.1);
+    overflow:hidden; min-height:280px;
+  }
+  .register-modal-visual::before{
+    content:''; position:absolute; inset:0; opacity:.4;
+    background-image:repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px);
+  }
+  .register-modal-visual .rv-inner{ position:relative; z-index:2; }
+  .register-modal-visual .eyebrow{ margin-bottom:16px; }
+  .register-modal-visual h3{ font-size:clamp(22px,2.6vw,30px); color:var(--white); }
+  .register-modal-visual p{ margin-top:14px; color:rgba(255,255,255,.68); font-size:14px; max-width:300px; }
+
+  .register-modal-form{ padding:52px 44px; }
+  .register-modal-form .eyebrow{ color:var(--emerald-brh); margin-bottom:18px; }
+  .register-modal-form h2{ font-size:clamp(24px,2.8vw,32px); color:var(--white); margin-bottom:10px; }
+  .register-modal-form>p{ color:rgba(255,255,255,.62); font-size:14.5px; max-width:380px; margin-bottom:30px; }
+
+  .register-modal-close{
+    position:absolute; top:18px; right:18px; z-index:5; width:40px; height:40px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.05); color:var(--white);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:background-color .3s, border-color .3s, transform .3s;
+  }
+  .register-modal-close:hover{ background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.4); transform:rotate(90deg); }
+
+  .field{ margin-bottom:22px; }
+  .field label{ display:block; font-family:var(--font-utility); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--emerald-brh); margin-bottom:9px; }
+  .field input{
+    width:100%; border:1px solid rgba(255,255,255,.16); border-radius:3px; background:rgba(255,255,255,.05);
+    padding:13px 14px; font-family:var(--font-body); font-size:15.5px; color:var(--white);
+    transition:border-color .3s, background-color .3s;
+  }
+  .field input::placeholder{ color:rgba(255,255,255,.32); }
+  .field input:focus{ border-color:var(--emerald-brh); background:rgba(255,255,255,.08); }
+  .register-note{ margin-top:14px; font-size:13px; color:var(--emerald-brh); display:none; }
+  .register-note.show{ display:block; }
+
+  /* ---------- Custom premium dropdowns (Age / Zone) ---------- */
+  .dd{ position:relative; }
+  .dd-trigger{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border:1px solid rgba(255,255,255,.16); border-radius:3px; background:rgba(255,255,255,.05);
+    padding:13px 14px; font-family:var(--font-body); font-size:15.5px; color:rgba(255,255,255,.35);
+    cursor:pointer; text-align:left; transition:border-color .3s, background-color .3s;
+  }
+  .dd-trigger.has-value{ color:var(--white); }
+  .dd-trigger:hover{ background:rgba(255,255,255,.08); }
+  .dd.open .dd-trigger, .dd-trigger:focus-visible{ border-color:var(--emerald-brh); background:rgba(255,255,255,.08); outline:none; }
+  .dd-chevron{ flex:0 0 auto; transition:transform .35s var(--ease); color:var(--emerald-brh); }
+  .dd.open .dd-chevron{ transform:rotate(180deg); }
+
+  .dd-panel{
+    position:absolute; left:0; right:0; top:calc(100% + 8px); z-index:20;
+    background:rgba(14,66,48,.55);
+    border:1px solid rgba(255,255,255,.16); border-radius:6px;
+    box-shadow:0 24px 60px -16px rgba(2,10,7,.6);
+    backdrop-filter:blur(22px) saturate(140%); -webkit-backdrop-filter:blur(22px) saturate(140%);
+    max-height:0; overflow:hidden; opacity:0; transform:translateY(-6px);
+    transition:max-height .4s var(--ease), opacity .3s var(--ease), transform .35s var(--ease);
+  }
+  .dd.open .dd-panel{ max-height:240px; opacity:1; transform:translateY(0); overflow-y:auto; }
+  .dd-option{
+    padding:11px 16px; font-size:14.5px; color:rgba(255,255,255,.8); cursor:pointer;
+    transition:background-color .25s, color .25s;
+  }
+  .dd-option:hover, .dd-option.highlighted{ background:rgba(35,160,107,.28); color:var(--white); }
+  .dd-option.selected{ color:var(--emerald-brh); font-weight:600; }
+
+  @media (max-width:820px){
+    .register-modal-panel{ grid-template-columns:1fr; max-height:92vh; }
+    .register-modal-visual{ min-height:160px; padding:36px 28px; }
+    .register-modal-form{ padding:40px 26px; }
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer{ background:#051813; padding:90px 0 34px; }
+  .footer-top{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; padding-bottom:64px; border-bottom:1px solid var(--line); }
+  .footer-brand .nav-brand{ margin-bottom:18px; }
+  .footer-brand p{ color:rgba(255,255,255,.5); font-size:14px; max-width:280px; }
+  .footer-col h4{ font-family:var(--font-utility); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.42); margin-bottom:18px; font-weight:500; }
+  .footer-col a, .footer-col p{ display:block; color:rgba(255,255,255,.68); font-size:14.5px; margin-bottom:12px; transition:color .3s; }
+  .footer-col a:hover{ color:var(--emerald-brh); }
+  .footer-social{ display:flex; gap:12px; margin-top:6px; }
+  .footer-social a{ width:36px; height:36px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .3s, background-color .3s; }
+  .footer-social a:hover{ border-color:var(--emerald-brh); background:rgba(35,160,107,.12); }
+  .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:28px; flex-wrap:wrap; gap:14px; }
+  .footer-bottom p{ color:rgba(255,255,255,.35); font-size:12.5px; font-family:var(--font-utility); letter-spacing:.03em; }
+
+  @media (max-width:900px){ .footer-top{ grid-template-columns:1fr 1fr; row-gap:36px; } }
+
+  /* Reveal-on-scroll utility */
+  .fade-up{ opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+  .fade-up.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<header class="nav" id="siteNav">
+  <div class="container nav-inner">
+    <div class="nav-brand">
+      <!-- REPLACE ME: swap this SVG for the final DARE Conference logo file -->
+      <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DARE Conference mark">
+        <path d="M24 4C24 4 32 14 32 24C32 30.6274 28.4183 34 24 34C19.5817 34 16 30.6274 16 24C16 14 24 4 24 4Z" fill="#23A06B"/>
+        <path d="M24 34C24 34 24 40 24 44" stroke="#DCEFE3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 40C20 37 28 37 32 40" stroke="#1B6E4C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="word">DARE Conference</span>
+    </div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#reveal">The Meaning</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="js-open-register">Register</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-secondary js-open-register">Register</a>
+      <button class="nav-burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" id="closeMenuBtn" aria-label="Close menu">✕</button>
+  <a href="#about">About</a>
+  <a href="#reveal">The Meaning</a>
+  <a href="#contact">Contact</a>
+  <a href="#" class="js-open-register">Register</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="hero-visual" id="heroVisual">
+    <!-- Slides: real DARE Conference photography, served as separate 4K-upscaled
+         JPEG files in /images so the browser can cache and lazy-load them
+         independently. object-fit:cover keeps every photo filling the frame at a
+         consistent crop, no distortion. -->
+    <div class="slide active" data-index="0">
+      <img class="slide-bg" src="images/slide-01.jpg" alt="A teenager shares during an interactive session at DARE Conference" loading="eager" decoding="async" fetchpriority="high">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="1">
+      <img class="slide-bg" src="images/slide-02.jpg" alt="A worship leader ministers in song at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="2">
+      <img class="slide-bg" src="images/slide-03.jpg" alt="A speaker ministers the word to teenagers at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="3">
+      <img class="slide-bg" src="images/slide-04.jpg" alt="Guests share a moment on stage at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="4">
+      <img class="slide-bg" src="images/slide-05.jpg" alt="Ministration in song at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="5">
+      <img class="slide-bg" src="images/slide-06.jpg" alt="Teenagers take notes during a teaching session at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="6">
+      <img class="slide-bg" src="images/slide-07.jpg" alt="Teenagers listen attentively during a session at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="7">
+      <img class="slide-bg" src="images/slide-08.jpg" alt="Attendees share a quiet moment at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="8">
+      <img class="slide-bg" src="images/slide-09.jpg" alt="Registration in progress at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+    <div class="slide" data-index="9">
+      <img class="slide-bg" src="images/slide-10.jpg" alt="Attendees registering at DARE Conference" loading="lazy" decoding="async">
+      <div class="slide-overlay"></div>
+    </div>
+
+    <canvas class="hero-particles" id="particleCanvas" aria-hidden="true"></canvas>
+
+    <div class="slide-caption">Conference Moment <strong id="slideLabel">01 of 10</strong></div>
+
+    <div class="hero-nav-controls">
+      <div class="hero-dots" id="heroDots"></div>
+      <div class="hero-arrows">
+        <button class="hero-arrow" id="prevSlide" aria-label="Previous slide">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <button class="hero-arrow" id="nextSlide" aria-label="Next slide">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <svg class="hero-watermark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M24 4C24 4 32 14 32 24C32 30.6274 28.4183 34 24 34C19.5817 34 16 30.6274 16 24C16 14 24 4 24 4Z" fill="#EFF7F2"/>
+    </svg>
+
+    <div class="hero-lockup">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M24 4C24 4 32 14 32 24C32 30.6274 28.4183 34 24 34C19.5817 34 16 30.6274 16 24C16 14 24 4 24 4Z" fill="#23A06B"/>
+      </svg>
+      <span class="edition" id="editionTag">12th Edition</span>
+    </div>
+
+    <h1 class="hero-title">DARE<br>CONFERENCE</h1>
+
+    <div class="dare-reveal" aria-live="polite">
+      <div class="dare-letters" id="dareLetters"></div>
+      <div class="dare-word-line" id="dareWordLine"></div>
+      <div class="dare-final" id="dareFinal"></div>
+    </div>
+
+    <p class="hero-tagline" id="taglineText"></p>
+
+    <div class="countdown" id="countdown" aria-label="Countdown to conference">
+      <div class="countdown-card"><div class="countdown-num" id="cdDays">00</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-card"><div class="countdown-num" id="cdHours">00</div><div class="countdown-label">Hours</div></div>
+      <div class="countdown-card"><div class="countdown-num" id="cdMinutes">00</div><div class="countdown-label">Minutes</div></div>
+      <div class="countdown-card"><div class="countdown-num" id="cdSeconds">00</div><div class="countdown-label">Seconds</div></div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary js-open-register" id="registerNowBtn">Register Now <span class="btn-arrow">→</span></a>
+      <a href="#reveal" class="btn btn-secondary">Watch Highlights</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT / VISION
+     ============================================================ -->
+<section class="about" id="about">
+  <svg class="about-watermark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M24 4C24 4 32 14 32 24C32 30.6274 28.4183 34 24 34C19.5817 34 16 30.6274 16 24C16 14 24 4 24 4Z" fill="#EFF7F2"/>
+  </svg>
+  <div class="container about-grid">
+    <div class="fade-up">
+      <span class="eyebrow">Our Story</span>
+      <h2 class="about-quote" style="margin-top:24px;">A vision to help teenagers discover the <em>rare energy</em> already inside them.</h2>
+    </div>
+    <div class="about-body fade-up">
+      <p>DARE Conference was conceived by Mummy Arin with a simple but powerful vision: to help teenagers discover who they truly are, recognize the unique gifts God has placed inside them, and become people who make meaningful impact in their generation. The name DARE reflects that vision, encouraging young people to discover the uncommon abilities, purpose and potential that God has deposited within them.</p>
+      <p>For eleven consecutive years, DARE Conference has remained committed to raising teenagers who are confident in their identity, intentional about their growth and equipped to do great exploits through Christ. Every edition builds on the one before it, calling a new wave of young people to step into who they were created to be.</p>
+      <div class="about-stats">
+        <div class="about-stat"><b>1</b><span>Day of Encounter</span></div>
+        <div class="about-stat"><b>11</b><span>Years Completed</span></div>
+        <div class="about-stat"><b>1</b><span>Shared Vision</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DARE SIGNATURE MOMENT
+     ============================================================ -->
+<section class="reveal-section" id="reveal">
+  <div class="container">
+    <div class="reveal-eyebrow"><span class="eyebrow">The Meaning</span></div>
+    <h2 class="reveal-title fade-up">What Does DARE Mean?</h2>
+    <div class="reveal-stack" id="revealStack"></div>
+    <p class="reveal-final-line" id="revealFinalLine"></p>
+    <p class="reveal-explainer fade-up">Discovering All Rare Energy represents the vision of helping teenagers discover the God given gifts, purpose, creativity, leadership and potential placed within them. It is a call to awaken every young person to the unique rare energy God has deposited in their lives so they can grow, serve, lead and make lasting impact.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     QUOTE
+     ============================================================ -->
+<section class="quote-band">
+  <div class="container fade-up">
+    <div class="quote-mark">&ldquo;</div>
+    <p class="quote-text">I came in tired and left with a fire I hadn't felt in years. DARE didn't just inspire me, it woke something up in me.</p>
+    <p class="quote-attr">Shared by an attendee, 11th Edition</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-head fade-up">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">Get In Touch</span>
+      <h2 style="margin-top:20px;">Let's stay connected</h2>
+      <p>Questions about the conference, partnerships or press. Reach us through any of the channels below.</p>
+    </div>
+    <div class="contact-grid fade-up">
+      <a class="contact-card" href="tel:+2349042780178">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.6 4.4-2.2 1.8a12.5 12.5 0 0 0 5.9 5.9l1.8-2.2 4.4 1.6v3a2 2 0 0 1-2.1 2C10.6 20.1 3.9 13.4 3.5 5.1A2 2 0 0 1 5.5 3h1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">0904 278 0178</div>
+      </a>
+      <a class="contact-card" href="https://instagram.com/lp53teensaffairs" target="_blank" rel="noopener">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+        </div>
+        <div class="contact-label">Instagram</div>
+        <div class="contact-value">@lp53teensaffairs</div>
+      </a>
+      <a class="contact-card" href="mailto:Lp53teensaffairs@gmail.com">
+        <div class="contact-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">Lp53teensaffairs@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-brand">
+          <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 4C24 4 32 14 32 24C32 30.6274 28.4183 34 24 34C19.5817 34 16 30.6274 16 24C16 14 24 4 24 4Z" fill="#23A06B"/>
+          </svg>
+          <span class="word">DARE Conference</span>
+        </div>
+        <p>An annual conference for discovering all rare energy, held every October.</p>
+        <div class="footer-social" aria-label="Social media">
+          <a href="https://instagram.com/lp53teensaffairs" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="tel:+2349042780178" aria-label="Phone"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6.5 4h3l1.6 4.4-2.2 1.8a12.5 12.5 0 0 0 5.9 5.9l1.8-2.2 4.4 1.6v3a2 2 0 0 1-2.1 2C10.6 20.1 3.9 13.4 3.5 5.1A2 2 0 0 1 5.5 3h1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+          <a href="mailto:Lp53teensaffairs@gmail.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#about">About</a>
+        <a href="#reveal">The Meaning</a>
+        <a href="#contact">Contact</a>
+        <a href="#" class="js-open-register">Register</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>0904 278 0178</p>
+        <p>@lp53teensaffairs</p>
+        <p>Lp53teensaffairs@gmail.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> DARE Conference. All rights reserved.</p>
+      <p id="footerEdition">12th Edition, October 1</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     REGISTER MODAL
+     Opens over the whole viewport when any "Register" trigger is
+     clicked. The homepage itself never shows a registration form.
+     ============================================================ -->
+<div class="register-modal" id="registerModal" aria-hidden="true">
+  <div class="register-modal-backdrop" id="registerModalBackdrop"></div>
+  <div class="register-modal-panel" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+    <button class="register-modal-close" id="registerModalClose" aria-label="Close registration">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div class="register-modal-visual">
+      <div class="rv-inner">
+        <span class="eyebrow">Save Your Seat</span>
+        <h3>Seats are limited, and the room fills every year.</h3>
+        <p>Join us this October for one unforgettable day of discovery, worship and rare energy.</p>
+      </div>
+    </div>
+    <div class="register-modal-form">
+      <span class="eyebrow">Registration</span>
+      <h2 id="registerModalTitle">Reserve your place</h2>
+      <p>Leave your details and we'll send you everything you need before the doors open.</p>
+      <form id="registerForm" novalidate>
+        <div class="field">
+          <label for="regName">Full name</label>
+          <input type="text" id="regName" name="name" placeholder="Your full name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="regPhone">Phone number</label>
+          <input type="tel" id="regPhone" name="phone" placeholder="Your phone number" required autocomplete="tel">
+        </div>
+        <div class="field">
+          <label id="ageDdLabel">Age</label>
+          <!-- Custom premium dropdown, populated from CONFIG.ageOptions in the script below -->
+          <div class="dd" id="ageDd">
+            <button type="button" class="dd-trigger" id="ageDdTrigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="ageDdLabel ageDdTrigger">
+              <span class="dd-trigger-label">Select Your Age</span>
+              <svg class="dd-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="dd-panel" id="ageDdPanel" role="listbox" tabindex="-1" aria-labelledby="ageDdLabel"></ul>
+            <input type="hidden" name="age" id="ageDdValue">
+          </div>
+        </div>
+        <div class="field">
+          <label id="zoneDdLabel">Zone</label>
+          <!-- Temporary sample zones — replace CONFIG.zoneOptions below with the official list when provided -->
+          <div class="dd" id="zoneDd">
+            <button type="button" class="dd-trigger" id="zoneDdTrigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="zoneDdLabel zoneDdTrigger">
+              <span class="dd-trigger-label">Select Your Zone</span>
+              <svg class="dd-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="dd-panel" id="zoneDdPanel" role="listbox" tabindex="-1" aria-labelledby="zoneDdLabel"></ul>
+            <input type="hidden" name="zone" id="zoneDdValue">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Complete Registration <span class="btn-arrow">→</span></button>
+        <p class="register-note" id="registerNote">You're on the list. Confirmation details are on their way to your inbox.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ============================================================
+     CONFIG — edit these each year, nothing else needs to change
+     ============================================================ */
+  const CONFIG = {
+    acronym: [
+      { letter: 'D', word: 'Discovering' },
+      { letter: 'A', word: 'All' },
+      { letter: 'R', word: 'Rare' },
+      { letter: 'E', word: 'Energy' }
+    ],
+    tagline: "A yearly gathering to discover what's dormant, and awaken what's rare.",
+    edition: "12th Edition",
+    countdownMonth: 9,   // 0-indexed: 9 = October
+    countdownDay: 1,
+    ageOptions: ['13','14','15','16','17','18','19','20','21'],
+    // TEMPORARY sample zones — replace with the official zone list when provided
+    zoneOptions: ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Zone E']
+  };
+
+  /* ---------- Nav scroll state ---------- */
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  /* ---------- Mobile menu ---------- */
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = document.getElementById('closeMenuBtn');
+  burger.addEventListener('click', function(){
+    mobileMenu.classList.add('open');
+    burger.setAttribute('aria-expanded','true');
+  });
+  closeMenu.addEventListener('click', function(){
+    mobileMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
+  });
+
+  /* ---------- Edition tags ---------- */
+  document.getElementById('editionTag').textContent = CONFIG.edition;
+  document.getElementById('footerEdition').textContent = CONFIG.edition + ', ' +
+    new Date(2000, CONFIG.countdownMonth, CONFIG.countdownDay).toLocaleDateString('en-US', { month:'long', day:'numeric' });
+  document.getElementById('taglineText').textContent = CONFIG.tagline;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ============================================================
+     HERO SLIDESHOW
+     ============================================================ */
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('heroDots');
+  const slideLabel = document.getElementById('slideLabel');
+  let currentSlide = 0;
+  let slideTimer;
+
+  slides.forEach(function(_, i){
+    const dot = document.createElement('button');
+    dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    dot.addEventListener('click', function(){ goToSlide(i); resetTimer(); });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function goToSlide(i){
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (i + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    slideLabel.textContent = String(currentSlide+1).padStart(2,'0') + ' of ' + String(slides.length).padStart(2,'0');
+  }
+  function nextSlide(){ goToSlide(currentSlide + 1); }
+  function prevSlide(){ goToSlide(currentSlide - 1); }
+  function resetTimer(){ clearInterval(slideTimer); slideTimer = setInterval(nextSlide, 2600); }
+
+  document.getElementById('nextSlide').addEventListener('click', function(){ nextSlide(); resetTimer(); });
+  document.getElementById('prevSlide').addEventListener('click', function(){ prevSlide(); resetTimer(); });
+  slideLabel.textContent = '01 of ' + String(slides.length).padStart(2,'0');
+
+  /* Decode every slide image ahead of time so the first loop never shows a
+     blank or half-painted frame. Falls back to starting anyway after 1.2s
+     in case decode() is unsupported or a slide is slow to resolve. */
+  const slideImages = Array.from(document.querySelectorAll('.slide-bg'));
+  const decodeAll = Promise.allSettled(slideImages.map(function(img){
+    return (img.decode ? img.decode() : Promise.resolve());
+  }));
+  const fallback = new Promise(function(resolve){ setTimeout(resolve, 1200); });
+  Promise.race([decodeAll, fallback]).then(resetTimer);
+
+  /* ---------- Ambient particles (subtle, low density) ---------- */
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  const heroVisual = document.getElementById('heroVisual');
+  let particles = [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function sizeCanvas(){
+    canvas.width = heroVisual.clientWidth;
+    canvas.height = heroVisual.clientHeight;
+  }
+  function initParticles(){
+    particles = [];
+    const count = Math.max(14, Math.round((canvas.width * canvas.height) / 90000));
+    for(let i=0;i<count;i++){
+      particles.push({
+        x: Math.random()*canvas.width,
+        y: canvas.height + Math.random()*canvas.height,
+        r: 1 + Math.random()*2,
+        speed: 0.15 + Math.random()*0.35,
+        drift: (Math.random()-0.5)*0.2,
+        alpha: 0.15 + Math.random()*0.35
+      });
+    }
+  }
+  function drawParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(function(p){
+      p.y -= p.speed;
+      p.x += p.drift;
+      if(p.y < -10){ p.y = canvas.height + 10; p.x = Math.random()*canvas.width; }
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(45,190,130,' + p.alpha + ')';
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    if(!reduceMotion) requestAnimationFrame(drawParticles);
+  }
+  sizeCanvas(); initParticles();
+  if(!reduceMotion){ requestAnimationFrame(drawParticles); }
+  window.addEventListener('resize', function(){ sizeCanvas(); initParticles(); });
+
+  /* ============================================================
+     DARE ACRONYM REVEAL (hero, looping)
+     ============================================================ */
+  const lettersWrap = document.getElementById('dareLetters');
+  const wordLine = document.getElementById('dareWordLine');
+  const finalLine = document.getElementById('dareFinal');
+
+  CONFIG.acronym.forEach(function(item, i){
+    const span = document.createElement('span');
+    span.className = 'L';
+    span.textContent = item.letter;
+    span.dataset.index = i;
+    lettersWrap.appendChild(span);
+  });
+  const letterEls = Array.from(lettersWrap.children);
+
+  function runDareLoop(){
+    let step = 0;
+    letterEls.forEach(function(el){ el.classList.remove('lit'); });
+    wordLine.classList.remove('show');
+    finalLine.classList.remove('show');
+    finalLine.textContent = '';
+
+    function playStep(){
+      if(step < CONFIG.acronym.length){
+        letterEls[step].classList.add('lit');
+        wordLine.classList.remove('show');
+        void wordLine.offsetWidth; // restart transition
+        wordLine.innerHTML = '<span class="hi">' + CONFIG.acronym[step].letter + '</span> means ' + CONFIG.acronym[step].word;
+        requestAnimationFrame(function(){ wordLine.classList.add('show'); });
+        step++;
+        setTimeout(playStep, 1150);
+      } else {
+        const full = CONFIG.acronym.map(a=>a.letter).join('');
+        const words = CONFIG.acronym.map(a=>a.word).join(' ');
+        wordLine.classList.remove('show');
+        finalLine.textContent = full + ' means ' + words;
+        requestAnimationFrame(function(){ finalLine.classList.add('show'); });
+        setTimeout(runDareLoop, 3600);
+      }
+    }
+    setTimeout(playStep, 500);
+  }
+  runDareLoop();
+
+  /* ============================================================
+     COUNTDOWN
+     ============================================================ */
+  function getNextTarget(){
+    const now = new Date();
+    let year = now.getFullYear();
+    let target = new Date(year, CONFIG.countdownMonth, CONFIG.countdownDay, 0, 0, 0);
+    if(target.getTime() <= now.getTime()){
+      target = new Date(year+1, CONFIG.countdownMonth, CONFIG.countdownDay, 0, 0, 0);
+    }
+    return target;
+  }
+  const cdEls = {
+    days: document.getElementById('cdDays'),
+    hours: document.getElementById('cdHours'),
+    minutes: document.getElementById('cdMinutes'),
+    seconds: document.getElementById('cdSeconds')
+  };
+  let lastVals = { days:null, hours:null, minutes:null, seconds:null };
+
+  function updateCountdown(){
+    const target = getNextTarget();
+    const diff = Math.max(0, target.getTime() - Date.now());
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    setVal(cdEls.days, days, 'days');
+    setVal(cdEls.hours, hours, 'hours');
+    setVal(cdEls.minutes, minutes, 'minutes');
+    setVal(cdEls.seconds, seconds, 'seconds');
+  }
+  function setVal(el, val, key){
+    const padded = String(val).padStart(2,'0');
+    if(lastVals[key] !== val){
+      el.textContent = padded;
+      el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick');
+      lastVals[key] = val;
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ============================================================
+     REGISTER MODAL
+     ============================================================ */
+  const registerModal = document.getElementById('registerModal');
+  const registerModalBackdrop = document.getElementById('registerModalBackdrop');
+  const registerModalClose = document.getElementById('registerModalClose');
+  let lastFocusedBeforeModal = null;
+
+  function openRegisterModal(triggerEl){
+    lastFocusedBeforeModal = triggerEl || document.activeElement;
+    registerModal.classList.add('open');
+    registerModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    const firstField = document.getElementById('regName');
+    setTimeout(function(){ if (firstField) firstField.focus(); }, 350);
+  }
+  function closeRegisterModal(){
+    registerModal.classList.remove('open');
+    registerModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    closeAllDropdowns();
+    if (lastFocusedBeforeModal && lastFocusedBeforeModal.focus) lastFocusedBeforeModal.focus();
+  }
+
+  document.querySelectorAll('.js-open-register').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      mobileMenu.classList.remove('open');
+      openRegisterModal(el);
+    });
+  });
+  registerModalBackdrop.addEventListener('click', closeRegisterModal);
+  registerModalClose.addEventListener('click', closeRegisterModal);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && registerModal.classList.contains('open')) closeRegisterModal();
+  });
+
+  /* ---------- Custom premium dropdown component (used for Age + Zone) ---------- */
+  const openDropdowns = [];
+  function closeAllDropdowns(){
+    openDropdowns.forEach(function(dd){ dd.close(); });
+  }
+
+  function createDropdown(rootId, triggerId, panelId, valueInputId, options, placeholder){
+    const root = document.getElementById(rootId);
+    const trigger = document.getElementById(triggerId);
+    const label = trigger.querySelector('.dd-trigger-label');
+    const panel = document.getElementById(panelId);
+    const valueInput = document.getElementById(valueInputId);
+    let highlightedIndex = -1;
+
+    options.forEach(function(opt, i){
+      const li = document.createElement('li');
+      li.className = 'dd-option';
+      li.textContent = opt;
+      li.setAttribute('role', 'option');
+      li.dataset.value = opt;
+      li.tabIndex = -1;
+      li.addEventListener('click', function(){ selectOption(i); close(); trigger.focus(); });
+      panel.appendChild(li);
+    });
+    const optionEls = Array.from(panel.children);
+
+    function selectOption(i){
+      optionEls.forEach(function(el){ el.classList.remove('selected'); });
+      optionEls[i].classList.add('selected');
+      label.textContent = options[i];
+      trigger.classList.add('has-value');
+      valueInput.value = options[i];
+      highlightedIndex = i;
+    }
+    function highlight(i){
+      optionEls.forEach(function(el){ el.classList.remove('highlighted'); });
+      if (i >= 0 && i < optionEls.length){
+        optionEls[i].classList.add('highlighted');
+        optionEls[i].scrollIntoView({ block:'nearest' });
+      }
+    }
+    function open(){
+      closeAllDropdowns();
+      root.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      highlight(highlightedIndex >= 0 ? highlightedIndex : 0);
+    }
+    function close(){
+      root.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    function toggle(){ root.classList.contains('open') ? close() : open(); }
+
+    trigger.addEventListener('click', toggle);
+    trigger.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        if (!root.classList.contains('open')) { open(); }
+        else {
+          const next = Math.min(highlightedIndex + 1, optionEls.length - 1);
+          highlight(next);
+        }
+      } else if (e.key === 'ArrowUp' && root.classList.contains('open')){
+        e.preventDefault();
+        const prev = Math.max(highlightedIndex - 1, 0);
+        highlight(prev);
+      } else if (e.key === 'Escape' && root.classList.contains('open')){
+        e.preventDefault();
+        close();
+      }
+    });
+    panel.addEventListener('keydown', function(e){
+      const current = optionEls.findIndex(function(el){ return el.classList.contains('highlighted'); });
+      if (e.key === 'ArrowDown'){ e.preventDefault(); highlight(Math.min(current + 1, optionEls.length - 1)); }
+      else if (e.key === 'ArrowUp'){ e.preventDefault(); highlight(Math.max(current - 1, 0)); }
+      else if (e.key === 'Enter'){ e.preventDefault(); if (current >= 0){ selectOption(current); close(); trigger.focus(); } }
+      else if (e.key === 'Escape'){ e.preventDefault(); close(); trigger.focus(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!root.contains(e.target)) close();
+    });
+
+    const api = { open, close, reset: function(){
+      label.textContent = placeholder;
+      trigger.classList.remove('has-value');
+      valueInput.value = '';
+      optionEls.forEach(function(el){ el.classList.remove('selected','highlighted'); });
+      highlightedIndex = -1;
+    }};
+    openDropdowns.push(api);
+    return api;
+  }
+
+  const ageDropdown = createDropdown('ageDd', 'ageDdTrigger', 'ageDdPanel', 'ageDdValue', CONFIG.ageOptions, 'Select Your Age');
+  const zoneDropdown = createDropdown('zoneDd', 'zoneDdTrigger', 'zoneDdPanel', 'zoneDdValue', CONFIG.zoneOptions, 'Select Your Zone');
+
+  /* ============================================================
+     SIGNATURE SCROLL REVEAL SECTION
+     ============================================================ */
+  const revealStack = document.getElementById('revealStack');
+  CONFIG.acronym.forEach(function(item){
+    const row = document.createElement('div');
+    row.className = 'reveal-row';
+    row.innerHTML = '<span class="big-letter">' + item.letter + '</span><span class="word">' + item.word + '</span>';
+    revealStack.appendChild(row);
+  });
+  document.getElementById('revealFinalLine').innerHTML =
+    CONFIG.acronym.map(a=>a.letter).join('') + ' means <strong>' + CONFIG.acronym.map(a=>a.word).join(' ') + '</strong>';
+
+  /* ---------- Registration form (visual only placeholder) ---------- */
+  document.getElementById('registerForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('registerNote').classList.add('show');
+  });
+
+  document.getElementById('registerModal').addEventListener('transitionend', function(e){
+    if (e.target.id === 'registerModal' || e.target.classList.contains('register-modal-panel')){
+      if (!registerModal.classList.contains('open')){
+        document.getElementById('registerNote').classList.remove('show');
+        document.getElementById('registerForm').reset();
+        ageDropdown.reset();
+        zoneDropdown.reset();
+      }
+    }
+  });
+
+  /* ============================================================
+     SCROLL REVEALS (fade-up + reveal rows)
+     ============================================================ */
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.fade-up').forEach(function(el){ io.observe(el); });
+
+  const rowIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        const rows = Array.from(document.querySelectorAll('.reveal-row'));
+        rows.forEach(function(row, i){
+          setTimeout(function(){ row.classList.add('in'); }, i * 220);
+        });
+        setTimeout(function(){
+          document.getElementById('revealFinalLine').classList.add('in');
+        }, rows.length * 220 + 300);
+        rowIo.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  rowIo.observe(document.getElementById('revealStack'));
+
+})();
+</script>
+</body>
+</html>
