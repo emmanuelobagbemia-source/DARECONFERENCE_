@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Inter+Tight:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" type="image/webp" href="images/slide-01.webp" fetchpriority="high">
 
 <style>
   /* ============================================================
@@ -41,6 +42,7 @@
   }
 
   *{ box-sizing:border-box; }
+  picture{ display:contents; }
   html{ scroll-behavior:smooth; }
   body{
     margin:0; background:var(--forest); color:var(--mint-2);
@@ -427,8 +429,45 @@
   }
   .field input::placeholder{ color:rgba(255,255,255,.32); }
   .field input:focus{ border-color:var(--emerald-brh); background:rgba(255,255,255,.08); }
-  .register-note{ margin-top:14px; font-size:13px; color:var(--emerald-brh); display:none; }
-  .register-note.show{ display:block; }
+  /* ---------- Form submission states: loading, error, success ---------- */
+  .form-error{
+    margin:-6px 0 18px; font-size:13.5px; line-height:1.5; color:var(--white);
+    background:rgba(255,255,255,.08); border-left:2px solid var(--emerald-brh);
+    padding:12px 14px; border-radius:2px; display:none;
+  }
+  .form-error.show{ display:block; }
+
+  #registerSubmitBtn{ position:relative; }
+  #registerSubmitBtn .btn-spinner{
+    display:none; width:16px; height:16px; border-radius:50%;
+    border:2px solid rgba(6,23,15,.28); border-top-color:#06170F;
+    animation:spin .7s linear infinite;
+  }
+  #registerSubmitBtn.is-loading .btn-label{ opacity:.55; }
+  #registerSubmitBtn.is-loading .btn-arrow{ display:none; }
+  #registerSubmitBtn.is-loading .btn-spinner{ display:inline-block; }
+  #registerSubmitBtn:disabled{ cursor:not-allowed; opacity:.85; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .register-success{
+    display:none; flex-direction:column; align-items:center; text-align:center;
+    padding:20px 6px 6px;
+  }
+  .register-success.show{ display:flex; }
+  .success-check{ margin-bottom:22px; opacity:0; transform:scale(.7); transition:opacity .5s var(--ease), transform .5s var(--ease); }
+  .register-success.show .success-check{ opacity:1; transform:scale(1); }
+  .success-check-ring{ stroke:var(--emerald-brh); stroke-dasharray:170; stroke-dashoffset:170; }
+  .register-success.show .success-check-ring{ animation:ringDraw .7s var(--ease) forwards; }
+  .success-check-mark{ stroke:var(--emerald-brh); stroke-dasharray:40; stroke-dashoffset:40; }
+  .register-success.show .success-check-mark{ animation:markDraw .45s var(--ease) .55s forwards; }
+  @keyframes ringDraw{ to{ stroke-dashoffset:0; } }
+  @keyframes markDraw{ to{ stroke-dashoffset:0; } }
+  .success-message{
+    font-family:var(--font-display); font-size:19px; line-height:1.5; color:var(--white);
+    max-width:340px; opacity:0; transform:translateY(8px);
+    transition:opacity .5s var(--ease) .5s, transform .5s var(--ease) .5s;
+  }
+  .register-success.show .success-message{ opacity:1; transform:translateY(0); }
 
   /* ---------- Custom premium dropdowns (Age / Zone) ---------- */
   .dd{ position:relative; }
@@ -539,43 +578,103 @@
          independently. object-fit:cover keeps every photo filling the frame at a
          consistent crop, no distortion. -->
     <div class="slide active" data-index="0">
-      <img class="slide-bg" src="images/slide-01.jpg" alt="A teenager shares during an interactive session at DARE Conference" loading="eager" decoding="async" fetchpriority="high">
+      <picture>
+
+        <source type="image/webp" srcset="images/slide-01.webp">
+
+        <img class="slide-bg" src="images/slide-01.jpg" alt="A teenager shares during an interactive session at DARE Conference" loading="eager" decoding="async" fetchpriority="high">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="1">
-      <img class="slide-bg" src="images/slide-02.jpg" alt="A worship leader ministers in song at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-02.webp">
+
+        <img class="slide-bg" data-src="images/slide-02.jpg" src="" alt="A worship leader ministers in song at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="2">
-      <img class="slide-bg" src="images/slide-03.jpg" alt="A speaker ministers the word to teenagers at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-03.webp">
+
+        <img class="slide-bg" data-src="images/slide-03.jpg" src="" alt="A speaker ministers the word to teenagers at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="3">
-      <img class="slide-bg" src="images/slide-04.jpg" alt="Guests share a moment on stage at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-04.webp">
+
+        <img class="slide-bg" data-src="images/slide-04.jpg" src="" alt="Guests share a moment on stage at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="4">
-      <img class="slide-bg" src="images/slide-05.jpg" alt="Ministration in song at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-05.webp">
+
+        <img class="slide-bg" data-src="images/slide-05.jpg" src="" alt="Ministration in song at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="5">
-      <img class="slide-bg" src="images/slide-06.jpg" alt="Teenagers take notes during a teaching session at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-06.webp">
+
+        <img class="slide-bg" data-src="images/slide-06.jpg" src="" alt="Teenagers take notes during a teaching session at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="6">
-      <img class="slide-bg" src="images/slide-07.jpg" alt="Teenagers listen attentively during a session at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-07.webp">
+
+        <img class="slide-bg" data-src="images/slide-07.jpg" src="" alt="Teenagers listen attentively during a session at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="7">
-      <img class="slide-bg" src="images/slide-08.jpg" alt="Attendees share a quiet moment at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-08.webp">
+
+        <img class="slide-bg" data-src="images/slide-08.jpg" src="" alt="Attendees share a quiet moment at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="8">
-      <img class="slide-bg" src="images/slide-09.jpg" alt="Registration in progress at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-09.webp">
+
+        <img class="slide-bg" data-src="images/slide-09.jpg" src="" alt="Registration in progress at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
     <div class="slide" data-index="9">
-      <img class="slide-bg" src="images/slide-10.jpg" alt="Attendees registering at DARE Conference" loading="lazy" decoding="async">
+      <picture>
+
+        <source type="image/webp" data-srcset="images/slide-10.webp">
+
+        <img class="slide-bg" data-src="images/slide-10.jpg" src="" alt="Attendees registering at DARE Conference" loading="lazy" decoding="async">
+
+      </picture>
       <div class="slide-overlay"></div>
     </div>
 
@@ -802,7 +901,7 @@
         </div>
         <div class="field">
           <label id="zoneDdLabel">Zone</label>
-          <!-- Temporary sample zones — replace CONFIG.zoneOptions below with the official list when provided -->
+          <!-- Zone dropdown, populated from CONFIG.zoneOptions in the script below -->
           <div class="dd" id="zoneDd">
             <button type="button" class="dd-trigger" id="zoneDdTrigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="zoneDdLabel zoneDdTrigger">
               <span class="dd-trigger-label">Select Your Zone</span>
@@ -812,9 +911,23 @@
             <input type="hidden" name="zone" id="zoneDdValue">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Complete Registration <span class="btn-arrow">→</span></button>
-        <p class="register-note" id="registerNote">You're on the list. Confirmation details are on their way to your inbox.</p>
+        <p class="form-error" id="registerError" role="alert"></p>
+        <button type="submit" class="btn btn-primary" id="registerSubmitBtn" style="width:100%; justify-content:center;">
+          <span class="btn-label">Complete Registration</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-arrow">→</span>
+        </button>
       </form>
+
+      <div class="register-success" id="registerSuccess" aria-live="polite">
+        <div class="success-check">
+          <svg viewBox="0 0 60 60" width="60" height="60">
+            <circle class="success-check-ring" cx="30" cy="30" r="27" fill="none" stroke-width="2.5"/>
+            <path class="success-check-mark" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M17 31l9 9 17-19"/>
+          </svg>
+        </div>
+        <p class="success-message">🎉 Registration Successful! We look forward to seeing you at DARE Conference 2026.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -838,8 +951,7 @@
     countdownMonth: 9,   // 0-indexed: 9 = October
     countdownDay: 1,
     ageOptions: ['13','14','15','16','17','18','19','20','21'],
-    // TEMPORARY sample zones — replace with the official zone list when provided
-    zoneOptions: ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Zone E']
+    zoneOptions: ['Redemption', 'Alpha Omega', 'Sanctuary of God', 'Family of God', 'Rivers of Joy', 'Peculiar', 'Open Heaven', 'Love', 'Mountain Top', 'Success', 'Continuing Grace', 'Jesus', 'Favour Zone']
   };
 
   /* ---------- Nav scroll state ---------- */
@@ -889,6 +1001,16 @@
   });
   const dots = Array.from(dotsWrap.children);
 
+  function decodeSlide(i){
+    const slide = slides[i];
+    if (!slide) return;
+    const img = slide.querySelector('.slide-bg');
+    const source = slide.querySelector('source[data-srcset]');
+    if (source){ source.srcset = source.dataset.srcset; source.removeAttribute('data-srcset'); }
+    if (img && img.dataset.src){ img.src = img.dataset.src; delete img.dataset.src; }
+    if (img && img.decode) { img.decode().catch(function(){}); }
+  }
+
   function goToSlide(i){
     slides[currentSlide].classList.remove('active');
     dots[currentSlide].classList.remove('active');
@@ -896,6 +1018,10 @@
     slides[currentSlide].classList.add('active');
     dots[currentSlide].classList.add('active');
     slideLabel.textContent = String(currentSlide+1).padStart(2,'0') + ' of ' + String(slides.length).padStart(2,'0');
+    // Stay exactly one slide ahead so the next fade-in is never blank, without
+    // forcing every photo to load upfront: only the first image loads immediately,
+    // every other slide is fetched lazily, just before it's actually needed.
+    decodeSlide((currentSlide + 1) % slides.length);
   }
   function nextSlide(){ goToSlide(currentSlide + 1); }
   function prevSlide(){ goToSlide(currentSlide - 1); }
@@ -905,15 +1031,10 @@
   document.getElementById('prevSlide').addEventListener('click', function(){ prevSlide(); resetTimer(); });
   slideLabel.textContent = '01 of ' + String(slides.length).padStart(2,'0');
 
-  /* Decode every slide image ahead of time so the first loop never shows a
-     blank or half-painted frame. Falls back to starting anyway after 1.2s
-     in case decode() is unsupported or a slide is slow to resolve. */
-  const slideImages = Array.from(document.querySelectorAll('.slide-bg'));
-  const decodeAll = Promise.allSettled(slideImages.map(function(img){
-    return (img.decode ? img.decode() : Promise.resolve());
-  }));
-  const fallback = new Promise(function(resolve){ setTimeout(resolve, 1200); });
-  Promise.race([decodeAll, fallback]).then(resetTimer);
+  // Warm just the second slide right away (one ahead of the eager first image),
+  // then start the loop. Slides 3-10 stay lazy until the loop actually reaches them.
+  decodeSlide(1);
+  resetTimer();
 
   /* ---------- Ambient particles (subtle, low density) ---------- */
   const canvas = document.getElementById('particleCanvas');
@@ -1191,19 +1312,93 @@
   document.getElementById('revealFinalLine').innerHTML =
     CONFIG.acronym.map(a=>a.letter).join('') + ' means <strong>' + CONFIG.acronym.map(a=>a.word).join(' ') + '</strong>';
 
-  /* ---------- Registration form (visual only placeholder) ---------- */
-  document.getElementById('registerForm').addEventListener('submit', function(e){
+  /* ---------- Registration form: live submission to Google Apps Script ---------- */
+  // Deployed Google Apps Script Web App (doPost) that appends each entry to the
+  // registration Google Sheet. Redeploy the script and swap this URL if it ever changes.
+  const REGISTRATION_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbjA6Z3tUDNFEfYhz9SnfYcJeNh_CZY3rRM32cRqmjPq8xRdxt48qDTuo91CG0YzybgA/exec';
+
+  const registerForm = document.getElementById('registerForm');
+  const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+  const registerErrorEl = document.getElementById('registerError');
+  const registerSuccessEl = document.getElementById('registerSuccess');
+  let autoCloseTimer = null;
+
+  function setSubmitting(isSubmitting){
+    registerSubmitBtn.disabled = isSubmitting;
+    registerSubmitBtn.classList.toggle('is-loading', isSubmitting);
+  }
+  function showFormError(message){
+    registerErrorEl.textContent = message;
+    registerErrorEl.classList.add('show');
+  }
+  function clearFormError(){
+    registerErrorEl.textContent = '';
+    registerErrorEl.classList.remove('show');
+  }
+  function showSuccessState(){
+    registerForm.style.display = 'none';
+    registerSuccessEl.classList.add('show');
+    autoCloseTimer = setTimeout(function(){
+      closeRegisterModal();
+    }, 3800);
+  }
+  function resetRegisterModalState(){
+    if (autoCloseTimer) { clearTimeout(autoCloseTimer); autoCloseTimer = null; }
+    clearFormError();
+    setSubmitting(false);
+    registerSuccessEl.classList.remove('show');
+    registerForm.style.display = '';
+    registerForm.reset();
+    ageDropdown.reset();
+    zoneDropdown.reset();
+  }
+
+  registerForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    document.getElementById('registerNote').classList.add('show');
+    clearFormError();
+
+    const name = document.getElementById('regName').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const age = document.getElementById('ageDdValue').value;
+    const zone = document.getElementById('zoneDdValue').value;
+
+    if (!name || !phone || !age || !zone){
+      showFormError('Please fill in your name, phone number, age and zone before submitting.');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const response = await fetch(REGISTRATION_ENDPOINT, {
+        method: 'POST',
+        // text/plain avoids a CORS preflight that Apps Script web apps don't handle;
+        // the script parses JSON.parse(e.postData.contents) on its side.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name: name, phone: phone, age: age, zone: zone })
+      });
+
+      if (!response.ok) throw new Error('Server responded with status ' + response.status);
+
+      // Apps Script may return JSON like {"result":"success"} or {"result":"error",...}
+      let payload = null;
+      try { payload = await response.json(); } catch (parseErr) { payload = null; }
+      if (payload && payload.result === 'error'){
+        throw new Error(payload.message || 'The server could not save this registration.');
+      }
+
+      setSubmitting(false);
+      showSuccessState();
+    } catch (err){
+      setSubmitting(false);
+      showFormError("We couldn't submit your registration. Please check your connection and try again.");
+      // Entered values are intentionally left in place so nothing is lost.
+    }
   });
 
   document.getElementById('registerModal').addEventListener('transitionend', function(e){
     if (e.target.id === 'registerModal' || e.target.classList.contains('register-modal-panel')){
       if (!registerModal.classList.contains('open')){
-        document.getElementById('registerNote').classList.remove('show');
-        document.getElementById('registerForm').reset();
-        ageDropdown.reset();
-        zoneDropdown.reset();
+        resetRegisterModalState();
       }
     }
   });
