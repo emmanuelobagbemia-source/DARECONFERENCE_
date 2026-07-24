@@ -1314,7 +1314,22 @@
 
   /* ---------- Registration form: live submission to Google Apps Script ---------- */
   // Deployed Google Apps Script Web App (doPost) that appends each entry to the
-  // registration Google Sheet. Redeploy the script and swap this URL if it ever changes.
+  // registration Google Sheet.
+  //
+  // CORS CHECKLIST — if submissions still fail with a CORS error after this fix,
+  // the cause is almost always the DEPLOYMENT, not this frontend code or Code.gs,
+  // because Apps Script does not expose any API to set CORS headers manually.
+  // Google only attaches them automatically when the deployment is public:
+  //   1. In the Apps Script editor: Deploy -> Manage deployments -> Edit (pencil).
+  //   2. "Execute as" must be "Me".
+  //   3. "Who has access" must be "Anyone" (NOT "Anyone with Google account" and
+  //      NOT restricted to specific people) — anything else makes Google return
+  //      a login/consent page instead of your JSON, which has no CORS headers
+  //      at all and produces exactly the "No Access-Control-Allow-Origin" error.
+  //   4. Every time Code.gs changes, you must ship a NEW deployment version
+  //      (the pencil icon -> "Version: New version" -> Deploy). Saving the
+  //      script alone does not update the live /exec URL's behavior.
+  // Redeploy and swap this URL if it ever changes.
   const REGISTRATION_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwbjA6Z3tUDNFEfYhz9SnfYcJeNh_CZY3rRM32cRqmjPq8xRdxt48qDTuo91CG0YzybgA/exec';
 
   const registerForm = document.getElementById('registerForm');
@@ -1369,17 +1384,28 @@
 
     setSubmitting(true);
     try {
+      // IMPORTANT: body is a URLSearchParams instance and we do NOT set a
+      // Content-Type header ourselves. The browser sets it to
+      // application/x-www-form-urlencoded automatically, which (along with
+      // GET/POST/HEAD + no custom headers) keeps this a CORS "simple request"
+      // so no preflight OPTIONS call is made. Apps Script web apps reliably
+      // return proper CORS headers on the real response for this exact
+      // request shape when deployed with "Who has access: Anyone" (see the
+      // notes above REGISTRATION_ENDPOINT for the full checklist).
+      const params = new URLSearchParams();
+      params.append('name', name);
+      params.append('phone', phone);
+      params.append('age', age);
+      params.append('zone', zone);
+
       const response = await fetch(REGISTRATION_ENDPOINT, {
         method: 'POST',
-        // text/plain avoids a CORS preflight that Apps Script web apps don't handle;
-        // the script parses JSON.parse(e.postData.contents) on its side.
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ name: name, phone: phone, age: age, zone: zone })
+        body: params
       });
 
       if (!response.ok) throw new Error('Server responded with status ' + response.status);
 
-      // Apps Script may return JSON like {"result":"success"} or {"result":"error",...}
+      // Apps Script returns JSON like {"result":"success"} or {"result":"error",...}
       let payload = null;
       try { payload = await response.json(); } catch (parseErr) { payload = null; }
       if (payload && payload.result === 'error'){
